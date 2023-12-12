@@ -1,117 +1,134 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+// import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  StatusBar,
+  useColorScheme,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Request} from './utils/agent';
+import display from './utils/display';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+interface AppProps {}
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const App: React.FC<AppProps> = () => {
+  const [deviceOne, setDeviceOne] = useState<Boolean>(false);
+  const colorScheme = useColorScheme(); // 'light', 'dark', or null
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    // Additional initialization or side effects based on colorScheme
+  }, [colorScheme]);
+  const handleButtonPress = async (deviceId: number) => {
+    switch (deviceId) {
+      case 1:
+        try {
+          let response: any;
+          setDeviceOne(prev => !prev);
+          if (deviceOne) {
+            response = await axios.get('http://192.168.1.7:3000/led/off');
+            // response = Request('/led/on');
+          } else {
+            response = await axios.get('http://192.168.1.7:3000/led/on');
+          }
+          console.log(response.data);
+        } catch (error: any) {
+          console.log(error.message);
+        }
+        break;
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      default:
+        break;
+    }
+    // Implement the logic to control the IoT device with the given deviceId
+    console.log(`Button ${deviceId} pressed`);
+    // Add your IoT control logic here
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <View style={styles.container}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={colorScheme === 'dark' ? '#131313' : '#131313'} // Dark mode: black, Light mode: white
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'} // Dark mode: light text, Light mode: dark text
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(1)}>
+          <Icon name="lightbulb-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(2)}>
+          <Icon name="tv" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 2</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(3)}>
+          <Icon name="ac-unit" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 3</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(4)}>
+          <Icon name="phone" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 4</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(5)}>
+          <Icon name="computer" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 5</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleButtonPress(6)}>
+          <Icon name="microwave" size={24} color="black" />
+          <Text style={styles.buttonText}>Device 6</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#131313',
+    width: display.setWidth(100),
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  row: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    width: display.setWidth(100),
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  button: {
+    width: 150, // Set a fixed width for the round button
+    height: 150, // Set a fixed height for the round button
+    borderRadius: 150 / 2, // Make the button round
+    backgroundColor: '#f1f1f1',
+    margin: 5,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  highlight: {
-    fontWeight: '700',
+  buttonText: {
+    color: 'black',
+    fontSize: 16,
+    marginTop: 5,
   },
 });
 
