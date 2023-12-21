@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base_url: string = 'http://192.168.1.7:3000';
+const base_url: string = 'http://192.168.1.2:3000';
 
 export const Request = async (url: string) => {
   try {

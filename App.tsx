@@ -9,7 +9,7 @@ import {
   StatusBar,
   useColorScheme,
 } from 'react-native';
-
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Request} from './utils/agent';
 import display from './utils/display';
@@ -19,7 +19,7 @@ interface AppProps {}
 const App: React.FC<AppProps> = () => {
   const [deviceOne, setDeviceOne] = useState<Boolean>(false);
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
-
+  const url = 'http://192.168.96.38:3000';
   useEffect(() => {
     // Additional initialization or side effects based on colorScheme
   }, [colorScheme]);
@@ -30,17 +30,61 @@ const App: React.FC<AppProps> = () => {
           let response: any;
           setDeviceOne(prev => !prev);
           if (deviceOne) {
-            response = await axios.get('http://192.168.1.7:3000/led/off');
+            response = await axios.get(`${url}/relay1/off`);
             // response = Request('/led/on');
           } else {
-            response = await axios.get('http://192.168.1.7:3000/led/on');
+            response = await axios.get(`${url}/relay1/on`);
           }
           console.log(response.data);
         } catch (error: any) {
           console.log(error.message);
         }
         break;
-
+      case 2:
+        try {
+          let response: any;
+          setDeviceOne(prev => !prev);
+          if (deviceOne) {
+            response = await axios.get(`${url}/relay2/off`);
+            // response = Request('/led/on');
+          } else {
+            response = await axios.get(`${url}/relay2/on`);
+          }
+          console.log(response.data);
+        } catch (error: any) {
+          console.log(error.message);
+        }
+        break;
+      case 3:
+        try {
+          let response: any;
+          setDeviceOne(prev => !prev);
+          if (deviceOne) {
+            response = await axios.get(`${url}/relay3/off`);
+            // response = Request('/led/on');
+          } else {
+            response = await axios.get(`${url}/relay3/on`);
+          }
+          console.log(response.data);
+        } catch (error: any) {
+          console.log(error.message);
+        }
+        break;
+      case 4:
+        try {
+          let response: any;
+          setDeviceOne(prev => !prev);
+          if (deviceOne) {
+            response = await axios.get(`${url}/relay4/off`);
+            // response = Request('/led/on');
+          } else {
+            response = await axios.get(`${url}/relay4/on`);
+          }
+          console.log(response.data);
+        } catch (error: any) {
+          console.log(error.message);
+        }
+        break;
       default:
         break;
     }
@@ -60,32 +104,32 @@ const App: React.FC<AppProps> = () => {
           style={styles.button}
           onPress={() => handleButtonPress(1)}>
           <Icon name="lightbulb-outline" size={24} color="black" />
-          <Text style={styles.buttonText}>Device 1</Text>
+          <Text style={styles.buttonText}>Bulb 1</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleButtonPress(2)}>
-          <Icon name="tv" size={24} color="black" />
-          <Text style={styles.buttonText}>Device 2</Text>
+          <Icon name="lightbulb-outline" size={24} color="black" />
+          <Text style={styles.buttonText}>Bulb 2</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleButtonPress(3)}>
-          <Icon name="ac-unit" size={24} color="black" />
-          <Text style={styles.buttonText}>Device 3</Text>
+          <Icon2 name="fan" size={24} color="black" />
+          <Text style={styles.buttonText}>fan 1</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.row}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleButtonPress(4)}>
-          <Icon name="phone" size={24} color="black" />
-          <Text style={styles.buttonText}>Device 4</Text>
+          <Icon2 name="fan" size={24} color="black" />
+          <Text style={styles.buttonText}>fan 2</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
           onPress={() => handleButtonPress(5)}>
-          <Icon name="computer" size={24} color="black" />
+          <Icon2 name="fan" size={24} color="black" />
           <Text style={styles.buttonText}>Device 5</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -93,7 +137,7 @@ const App: React.FC<AppProps> = () => {
           onPress={() => handleButtonPress(6)}>
           <Icon name="microwave" size={24} color="black" />
           <Text style={styles.buttonText}>Device 6</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -110,15 +154,15 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginVertical: 10,
-    width: display.setWidth(100),
+    width: display.setWidth(95),
     alignItems: 'center',
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
   button: {
-    width: 150, // Set a fixed width for the round button
-    height: 150, // Set a fixed height for the round button
-    borderRadius: 150 / 2, // Make the button round
+    width: 160, // Set a fixed width for the round button
+    height: 160, // Set a fixed height for the round button
+    borderRadius: 160 / 2, // Make the button round
     backgroundColor: '#f1f1f1',
     margin: 5,
     padding: 10,
@@ -129,6 +173,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     marginTop: 5,
+    textTransform: 'uppercase',
   },
 });
 
