@@ -19,7 +19,7 @@ interface AppProps {}
 const App: React.FC<AppProps> = () => {
   const [deviceOne, setDeviceOne] = useState<Boolean>(false);
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
-  const url = 'http://192.168.96.38:3000';
+  const url = 'http://192.168.103.38:3000';
   useEffect(() => {
     // Additional initialization or side effects based on colorScheme
   }, [colorScheme]);
@@ -31,6 +31,10 @@ const App: React.FC<AppProps> = () => {
           setDeviceOne(prev => !prev);
           if (deviceOne) {
             response = await axios.get(`${url}/relay1/off`);
+            console.log('response sented');
+            if (response) {
+              console.log('Relay 1 is off');
+            }
             // response = Request('/led/on');
           } else {
             response = await axios.get(`${url}/relay1/on`);
