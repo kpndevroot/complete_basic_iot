@@ -19,7 +19,7 @@ interface AppProps {}
 const App: React.FC<AppProps> = () => {
   const [deviceOne, setDeviceOne] = useState<Boolean>(false);
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
-  const url = 'http://192.168.103.38:3000';
+  const url = 'http://192.168.1.2:3000';
   useEffect(() => {
     // Additional initialization or side effects based on colorScheme
   }, [colorScheme]);

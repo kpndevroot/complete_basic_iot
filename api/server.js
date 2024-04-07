@@ -52,7 +52,7 @@ for (let i = 0; i < numRelays; i++) {
     try {
       // Retrieve status of the specific relay
       const response = await axios.get(
-        `http://${esp8266IP}/relay${relayIndex}`,
+        `http://${esp8266IP}:8080/relay${relayIndex}`,
       );
       res.send(response.data);
     } catch (error) {
@@ -99,7 +99,8 @@ app.get('/myip', async (req, res) => {
   try {
     let isIp = await ipModal.find({});
     console.log({isIp: isIp});
-    if (isIp.length >= 0) {
+    console.log({isIp: isIp.length});
+    if (isIp.length > 0) {
       console.log('IP already exists');
       await ipModal.updateOne({
         ip: req.query.local_ip,
