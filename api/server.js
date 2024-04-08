@@ -1,12 +1,17 @@
 const express = require('express');
+require('dotenv').config();
+
 const axios = require('axios');
 const mongoose = require('mongoose');
 const ipModal = require('./modal/ipModal');
 const app = express();
 const port = 3000;
+const ngrok = require('ngrok');
+
 // const esp8266IP = 'http://192.168.1.5:8080'; // Replace with your ESP8266's IP address
 // const esp8266IP = 'https://103.38.12.241:8080'; // Replace with your ESP8266's IP address
 let esp8266IP;
+const TOKEN = process.env.TOKEN;
 mongoose
   // .connect('mongodb://127.0.0.1:27017/iot')
   .connect(
@@ -14,6 +19,14 @@ mongoose
   )
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
+
+const TunnelSchema = new mongoose.Schema({
+  sshUrl: String,
+  tcpUrl: String,
+  createdAt: {type: Date, default: Date.now},
+});
+
+const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
 const numRelays = 4;
 let readEspIp = async () => {
@@ -129,7 +142,42 @@ app.post('/myip', async (req, res) => {
   // res.send(response.data);
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Node.js API listening at http://localhost:${port}`);
-  readEspIp();
+  await readEspIp();
+  try {
+    ngrok.authtoken(TOKEN);
+    const sshPromise = ngrok.connect({proto: 'tcp', addr: 22});
+    const tcpPromise = ngrok.connect({proto: 'tcp', addr: 3000});
+
+    const [sshUrl, tcpUrl] = await Promise.all([sshPromise, tcpPromise]);
+
+    const update = {
+      sshUrl: sshUrl ? sshUrl.toString() : '',
+      tcpUrl: tcpUrl ? tcpUrl.toString() : '',
+    };
+
+    const options = {upsert: true, new: true}; // Upsert: create if not exists, new: return updated record
+
+    try {
+      let existingRecord = await Tunnel.findOneAndUpdate({}, update, options);
+
+      if (existingRecord) {
+        // Record exists, updated it
+        console.log('Tunnel record updated successfully:', existingRecord);
+      } else {
+        // Record does not exist, created a new one (this shouldn't happen in your case since there's supposed to be only one document)
+        console.log('New tunnel record created:', existingRecord);
+      }
+      console.log(`Ingress established at: ${sshUrl}`);
+      console.log(`Ingress established at: ${tcpUrl}`);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    // console.log({tunnelRecord: tunnelRecord});
+    console.log('Tunnel addresses saved to MongoDB.');
+  } catch (error) {
+    console.error('Error:', error);
+  }
 });
