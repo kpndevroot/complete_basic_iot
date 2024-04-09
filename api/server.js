@@ -12,14 +12,26 @@ const ngrok = require('ngrok');
 // const esp8266IP = 'https://103.38.12.241:8080'; // Replace with your ESP8266's IP address
 let esp8266IP;
 const TOKEN = process.env.TOKEN;
-mongoose
-  // .connect('mongodb://127.0.0.1:27017/iot')
-  .connect(
-    'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
-  )
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+// mongoose
+//   // .connect('mongodb://127.0.0.1:27017/iot')
+//   .connect(
+//     'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
+//   )
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.error(err));
 
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(
+      'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
+    );
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+connectToMongoDB();
 const TunnelSchema = new mongoose.Schema({
   sshUrl: String,
   tcpUrl: String,
