@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const axios = require('axios');
 const mongoose = require('mongoose');
-const ipModal = require('./modal/ipModal');
+const ipModal = require('./modal/ipModal.js');
 const app = express();
 const port = 3000;
 const ngrok = require('ngrok');
