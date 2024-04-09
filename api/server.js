@@ -42,7 +42,9 @@ const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
 const numRelays = 4;
 let readEspIp = async () => {
-  let ip = await ipModal.find({});
+  // let ip = await ipModal.find({});
+  let ip = await ipModal.find({}).maxTimeMS(30000); // Increase timeout to 30 seconds
+
   // console.log({ip: ip});
   if (ip.length > 0) {
     console.log('IP already exists');
