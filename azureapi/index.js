@@ -1,9 +1,8 @@
 // Import required modules
 const express = require('express');
-const mongoose = require('mongoose');
-
-// Create an Express application
 const app = express();
+const mongoose = require('mongoose');
+app.get('/', (req, res) => res.send('hi dev i am on'));
 
 mongoose
   // .connect('mongodb://127.0.0.1:27017/iot')
@@ -20,11 +19,6 @@ const TunnelSchema = new mongoose.Schema({
 
 const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
-// Define a route that responds with a JSON message
-app.get('/', (req, res) => {
-  res.json({message: 'Hi!'});
-});
-
 app.get('/tunnel', async (req, res) => {
   try {
     let doc = await Tunnel.findOne({});
@@ -34,7 +28,6 @@ app.get('/tunnel', async (req, res) => {
   }
 });
 // Start the server on port 3000
-const PORT = 8080;
-app.listen(PORT || 3000, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+app.listen(5000, () => console.log('Server ready on port 5000.'));
+module.exports = app;
