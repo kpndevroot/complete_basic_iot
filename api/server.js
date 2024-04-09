@@ -20,18 +20,30 @@ const TOKEN = process.env.TOKEN;
 //   .then(() => console.log('MongoDB connected'))
 //   .catch(err => console.error(err));
 
-async function connectToMongoDB() {
-  try {
-    await mongoose.connect(
-      'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
-    );
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error(err);
-  }
-}
+// async function connectToMongoDB() {
+//   try {
+//     await mongoose.connect(
+//       'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
+//       {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//       },
+//     );
+//     console.log('MongoDB connected');
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
-connectToMongoDB();
+// connectToMongoDB();
+const run = async () => {
+  await mongoose.connect(
+    'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
+  );
+  console.log('Connected to myDB');
+};
+
+run().catch(err => console.error(err));
 const TunnelSchema = new mongoose.Schema({
   sshUrl: String,
   tcpUrl: String,
@@ -42,9 +54,7 @@ const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
 const numRelays = 4;
 let readEspIp = async () => {
-  // let ip = await ipModal.find({});
-  let ip = await ipModal.find({}).maxTimeMS(30000); // Increase timeout to 30 seconds
-
+  let ip = await ipModal.find({});
   // console.log({ip: ip});
   if (ip.length > 0) {
     console.log('IP already exists');
