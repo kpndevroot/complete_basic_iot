@@ -43,7 +43,7 @@ const ScreenOne: React.FC<AppProps> = () => {
   const [deviceEight, setDeviceEight] = useState<Boolean>();
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
   // const url = 'http://192.168.1.2:3000';
-  const url = 'http://0.tcp.in.ngrok.io:19092';
+  const url = 'http://0.tcp.in.ngrok.io:15531';
 
   const [editDevice, setEditDevice] = useState(1);
   const handleEdit = (componentName: string, componentType: string) => {
@@ -53,10 +53,10 @@ const ScreenOne: React.FC<AppProps> = () => {
   };
   useEffect(() => {
     // Additional initialization or side effects based on colorScheme
-    console.log({componentTwo: componentTwo});
+    // console.log({componentTwo: componentTwo});
   }, [colorScheme, editDevice]);
   const handleButtonPress = async (deviceId: number) => {
-    console.log({deviceId});
+    console.log({deviceId: deviceId});
     switch (deviceId) {
       case 1:
         try {
@@ -64,7 +64,7 @@ const ScreenOne: React.FC<AppProps> = () => {
           setDeviceOne(prev => !prev);
           if (deviceOne) {
             response = await axios.get(`${url}/relay1/off`);
-            console.log('response sented');
+            console.log('response sended');
             if (response) {
               console.log('Relay 1 is off');
             }
@@ -83,6 +83,8 @@ const ScreenOne: React.FC<AppProps> = () => {
           setDeviceTwo(prev => !prev);
           if (deviceTwo) {
             response = await axios.get(`${url}/relay2/off`);
+            console.log('response sended relay2');
+
             // response = Request('/led/on');
           } else {
             response = await axios.get(`${url}/relay2/on`);

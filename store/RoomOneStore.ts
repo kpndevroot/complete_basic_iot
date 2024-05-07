@@ -57,7 +57,7 @@ const initialState: RoomState = {
   },
   componentTwo: {
     name: 'Bulb 2',
-    state: true,
+    state: false,
     type: 'light',
   },
   componentThree: {
@@ -67,7 +67,7 @@ const initialState: RoomState = {
   },
   componentFour: {
     name: 'Bulb 4',
-    state: true,
+    state: false,
     type: 'light',
   },
   componentFive: {
@@ -131,9 +131,17 @@ const RoomStore = create(
             cn = 'Three';
           } else if (n === 4) {
             cn = 'Four';
+          } else if (n === 5) {
+            cn = 'Five';
+          } else if (n === 6) {
+            cn = 'Six';
+          } else if (n === 7) {
+            cn = 'Seven';
+          } else if (n === 8) {
+            cn = 'Eight';
           } else {
             // cn = 'One';
-            console.log('n is not 1, 2, 3, or 4');
+            console.log('n is not 1, 2, 3, or 4 to 8');
             return;
           }
           const componentName = `component${cn}` as keyof RoomState;
