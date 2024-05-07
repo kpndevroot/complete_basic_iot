@@ -35,6 +35,8 @@ const RegularSpeed: React.FC = () => {
     } else if (newSpeed === 3) {
       // Call function for speed 3
       functionForSpeed3();
+    } else {
+      setSpeed(0);
     }
   };
 
@@ -69,12 +71,12 @@ const RegularSpeed: React.FC = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleSpeedChange(speed + 1)}>
-          <Text style={styles.buttonText}>Increase Speed</Text>
+          <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => handleSpeedChange(speed - 1)}>
-          <Text style={styles.buttonText}>Decrease Speed</Text>
+          <Text style={styles.buttonText}>-</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -90,6 +92,8 @@ const styles = StyleSheet.create({
   speedText: {
     fontSize: 20,
     marginBottom: 5,
+
+    color: '#fff',
   },
   speedContainer: {
     flexDirection: 'row',
@@ -100,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginRight: 5,
+    color: '#fff',
   },
   speedPercentage: {
     fontSize: 24,
@@ -107,12 +112,13 @@ const styles = StyleSheet.create({
   knobContainer: {
     width: 150,
     height: 150,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 75,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    backgroundColor: 'lightblue',
+    // backgroundColor: 'lightblue',
+    borderColor: '#fff',
   },
   knob: {
     justifyContent: 'center',
@@ -124,12 +130,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'lightgray',
-    padding: 10,
+    // padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+
     marginHorizontal: 10,
     borderRadius: 5,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 25,
+    fontWeight: '800',
   },
 });
 

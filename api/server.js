@@ -46,7 +46,7 @@ const TunnelSchema = new mongoose.Schema({
 
 const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
-const numRelays = 4;
+const numRelays = 8;
 let readEspIp = async () => {
   let ip = await ipModal.find({});
   // console.log({ip: ip});

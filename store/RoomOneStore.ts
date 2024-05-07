@@ -24,6 +24,26 @@ export interface RoomState {
     state: boolean;
     type: string;
   };
+  componentFive: {
+    name: string;
+    state: boolean;
+    type: string;
+  };
+  componentSix: {
+    name: string;
+    state: boolean;
+    type: string;
+  };
+  componentSeven: {
+    name: string;
+    state: boolean;
+    type: string;
+  };
+  componentEight: {
+    name: string;
+    state: boolean;
+    type: string;
+  };
   fetchAllComponentState: () => Promise<void>;
   editComponent: (n: number, newName: string, newType: string) => void;
   changeComponentState: (n: number) => Promise<void>;
@@ -37,18 +57,38 @@ const initialState: RoomState = {
   },
   componentTwo: {
     name: 'Bulb 2',
-    state: false,
+    state: true,
     type: 'light',
   },
   componentThree: {
-    name: 'fan 1',
+    name: 'Bulb 3',
     state: false,
     type: 'light',
   },
   componentFour: {
+    name: 'Bulb 4',
+    state: true,
+    type: 'light',
+  },
+  componentFive: {
+    name: 'fan 1',
+    state: false,
+    type: 'fan',
+  },
+  componentSix: {
     name: 'fan 2',
     state: false,
-    type: 'light',
+    type: 'fan',
+  },
+  componentSeven: {
+    name: 'fan 3',
+    state: false,
+    type: 'fan',
+  },
+  componentEight: {
+    name: 'fan 4',
+    state: false,
+    type: 'fan',
   },
   fetchAllComponentState: async () => {
     try {
@@ -83,16 +123,18 @@ const RoomStore = create(
       editComponent: async (n: number, newName: string, newType: string) => {
         try {
           let cn;
-          if (n == 1) {
+          if (n === 1) {
             cn = 'One';
-          } else if (n == 2) {
+          } else if (n === 2) {
             cn = 'Two';
-          } else if (n == 3) {
+          } else if (n === 3) {
             cn = 'Three';
-          } else if (n == 4) {
+          } else if (n === 4) {
             cn = 'Four';
           } else {
-            cn = 'One';
+            // cn = 'One';
+            console.log('n is not 1, 2, 3, or 4');
+            return;
           }
           const componentName = `component${cn}` as keyof RoomState;
           console.log({componentName: componentName});

@@ -10,7 +10,13 @@ import RegularSpeed from './components/RegularSpeed';
 
 function Notifications() {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000',
+      }}>
       {/* <FanSpeedControl /> */}
       <RegularSpeed />
     </View>
