@@ -137,10 +137,17 @@ app.get('/myip', async (req, res) => {
     console.log({isIp: isIp.length});
     if (isIp.length > 0) {
       console.log('IP already exists');
-      await ipModal.updateOne({
-        _id: '66379070ee4484a38bc4006a',
-        ip: req.query.local_ip,
-      });
+      // await ipModal.updateOne({
+      //   _id: '66379070ee4484a38bc4006a',
+      //   ip: req.query.local_ip,
+      // });
+      await ipModal.findOneAndUpdate(
+        {
+          _id: '66379070ee4484a38bc4006a',
+        },
+        {ip: req.query.local_ip},
+        {new: true},
+      );
       res.send('IP already exists and updated');
     } else {
       await ipModal.create({ip: req.query.local_ip});
@@ -164,10 +171,17 @@ app.get('/myip2', async (req, res) => {
     console.log({isIp: isIp.length});
     if (isIp.length > 0) {
       console.log('IP already exists');
-      await ipModal.updateOne({
-        _id: '663ccc16a18e78269c935326',
-        ip: req.query.local_ip,
-      });
+      // await ipModal.updateOne({
+      //   _id: '663ccc16a18e78269c935326',
+      //   ip: req.query.local_ip,
+      // });
+      await ipModal.findOneAndUpdate(
+        {
+          _id: '663ccc16a18e78269c935326',
+        },
+        {ip: req.query.local_ip},
+        {new: true},
+      );
       res.send('IP already exists and updated');
     } else {
       await ipModal.create({ip: req.query.local_ip});

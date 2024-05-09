@@ -1,21 +1,22 @@
+
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
 
-const char *ssid = "MALWARE";
-const char *password = "1kpndev@wifi21";
 // const char *ssid = "piston";
 // const char *password = "12345432";
+const char* ssid = "Kalaivani";
+const char* password = "9495115053";
 const char* ipify_url = "https://api.ipify.org";
-const char* api_endpoint = "http://192.168.1.2:3000/myip";
+const char* api_endpoint = "http://192.168.225.89:3000/myip2";
 WebServer server(8080);
 
-const int relayPins[] = {19, 21, 22, 23}; // Replace these with the appropriate GPIO pins on your ESP32
+const int relayPins[] = { 19, 21, 22, 23 };  // Replace these with the appropriate GPIO pins on your ESP32
 const int numRelays = sizeof(relayPins) / sizeof(relayPins[0]);
-
+// const int numRelays =8;
 void setup() {
   Serial.begin(9600);
-
+ 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(250);
@@ -24,41 +25,53 @@ void setup() {
 
   Serial.println("");
   Serial.println("WiFi connected");
+  Serial.print(numRelays);
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   sendLocalIPToAPI();
   getPublicIP();
   for (int i = 0; i < numRelays; i++) {
     pinMode(relayPins[i], OUTPUT);
-    digitalWrite(relayPins[i], LOW);
+    digitalWrite(relayPins[i], HIGH);
   }
 
   server.on("/", HTTP_GET, []() {
-    // String status = "Relay Status:\n";
-    // for (int i = 0; i < numRelays; i++) {
-    //   status += "Relay " + String(i + 1) + ": " + (digitalRead(relayPins[i]) ? "ON" : "OFF") + "\n";
-    // }
-    // server.send(200, "text/plain", status);
-   
 
   });
-   server.on("/myip", HTTP_GET, []() {
+  server.on("/myip", HTTP_GET, [] {
     String localIPString = WiFi.localIP().toString();
     server.send(200, "text/plain", localIPString);
   });
-
-  for (int i = 0; i < numRelays; i++) {
-    int relayIndex = i;
-    server.on("/relay" + String(i + 1) + "/on", HTTP_GET, [relayIndex]() {
-      digitalWrite(relayPins[relayIndex], HIGH);
-      server.send(200, "text/plain", "Relay " + String(relayIndex + 1) + " turned on");
-    });
-
-    server.on("/relay" + String(i + 1) + "/off", HTTP_GET, [relayIndex]() {
-      digitalWrite(relayPins[relayIndex], LOW);
-      server.send(200, "text/plain", "Relay " + String(relayIndex + 1) + " turned off");
-    });
+  server.on("/speed/0", HTTP_GET, []() {
+    // setFanSpeed(2);
+    for (int i = 0; i < 4; i++) {
+    digitalWrite(relayPins[i], LOW);
   }
+    server.send(200, "text/plain", "Fan speed set to 2");
+  });
+  server.on("/speed/1", HTTP_GET, []() {
+    // setFanSpeed(1);
+    //  digitalWrite(relayPins[i], LOW)
+    //  digitalWrite(relayPins[i], LOW)
+    server.send(200, "text/plain", "Fan speed set to 1");
+  });
+
+  server.on("/speed/2", HTTP_GET, []() {
+    // setFanSpeed(2);
+    server.send(200, "text/plain", "Fan speed set to 2");
+  });
+
+  server.on("/speed/3", HTTP_GET, []() {
+    // setFanSpeed(3);
+    server.send(200, "text/plain", "Fan speed set to 3");
+  });
+
+  server.on("/speed/4", HTTP_GET, []() {
+    // setFanSpeed(4);
+    server.send(200, "text/plain", "Fan speed set to 4");
+  });
+
+
 
   server.begin();
 }
@@ -92,7 +105,7 @@ void sendLocalIPToAPI() {
 
   // Construct the URL with the local IP address as a query parameter
   // String url = api_endpoint + "?local_ip=" + WiFi.localIP().toString();
-String url = String(api_endpoint) + "?local_ip=" + WiFi.localIP().toString();
+  String url = String(api_endpoint) + "?local_ip=" + WiFi.localIP().toString();
 
   http.begin(url);
 
@@ -108,6 +121,7 @@ String url = String(api_endpoint) + "?local_ip=" + WiFi.localIP().toString();
 
   http.end();
 }
+
 void loop() {
   server.handleClient();
 }
