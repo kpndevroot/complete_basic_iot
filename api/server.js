@@ -38,11 +38,20 @@ mongoose
 // connectToMongoDB();
 
 // run().catch(err => console.error(err));
-const TunnelSchema = new mongoose.Schema({
-  sshUrl: String,
-  tcpUrl: String,
-  createdAt: {type: Date, default: Date.now},
-});
+const TunnelSchema = new mongoose.Schema(
+  {
+    sshUrl: String,
+    tcpUrl: String,
+    lastUpdated: {
+      type: Date,
+      default: Date.now,
+    },
+    createdAt: {type: Date, default: Date.now},
+  },
+  {
+    timestamps: true,
+  },
+);
 
 const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
