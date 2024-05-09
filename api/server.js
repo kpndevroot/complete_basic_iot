@@ -128,6 +128,7 @@ for (let i = 0; i < numRelays; i++) {
 app.get('/myip', async (req, res) => {
   // const response = await req.body.ip;
   console.log({query: req.query, ip: req.query.local_ip});
+  console.log('ESP 1 SENDED THE IP ');
   // res.send(erq.data);
 
   try {
@@ -137,6 +138,34 @@ app.get('/myip', async (req, res) => {
     if (isIp.length > 0) {
       console.log('IP already exists');
       await ipModal.updateOne({
+        _id: '66379070ee4484a38bc4006a',
+        ip: req.query.local_ip,
+      });
+      res.send('IP already exists and updated');
+    } else {
+      await ipModal.create({ip: req.query.local_ip});
+      console.log('IP does not exist');
+      console.log('IP saved');
+      res.send('IP not exists');
+    }
+  } catch (error) {
+    console.error('Error saving IP:', error.message);
+  }
+});
+app.get('/myip2', async (req, res) => {
+  // const response = await req.body.ip;
+  console.log({query: req.query, ip: req.query.local_ip});
+  // res.send(erq.data);
+  console.log('ESP 2 SENDED THE IP ');
+
+  try {
+    let isIp = await ipModal.find({});
+    console.log({isIp: isIp});
+    console.log({isIp: isIp.length});
+    if (isIp.length > 0) {
+      console.log('IP already exists');
+      await ipModal.updateOne({
+        _id: '663ccc16a18e78269c935326',
         ip: req.query.local_ip,
       });
       res.send('IP already exists and updated');

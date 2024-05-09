@@ -7,18 +7,47 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ScreenOne from './screens/RoomOne';
 import FanSpeedControl from './components/FanSpeedControl';
 import RegularSpeed from './components/RegularSpeed';
+import Slider from '@react-native-community/slider';
+import RoomFan from './screens/RoomFan';
 
 function Notifications() {
+  const [sliderValue, setSliderValue] = React.useState(0);
+
+  const formatSliderValue = (value: number) => {
+    // Convert the numeric value to text as desired
+    switch (value) {
+      case 0:
+        return 'Low';
+      case 1:
+        return 'Medium';
+      case 2:
+        return 'High';
+      case 3:
+        return 'Very High';
+      default:
+        return '';
+    }
+  };
+
   return (
     <View
       style={{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000',
+        // backgroundColor: '#000',
       }}>
-      {/* <FanSpeedControl /> */}
-      <RegularSpeed />
+      <Text style={{marginBottom: 10}}>{formatSliderValue(sliderValue)}</Text>
+      <Slider
+        style={{width: 200, height: 50}}
+        minimumValue={0}
+        maximumValue={3}
+        value={sliderValue}
+        onValueChange={value => setSliderValue(value)}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+        step={1}
+      />
     </View>
   );
 }
@@ -43,7 +72,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Notifications"
-        component={Notifications}
+        component={RoomFan}
         options={{
           tabBarLabel: 'ROOM 2',
           tabBarIcon: ({color}) => (
