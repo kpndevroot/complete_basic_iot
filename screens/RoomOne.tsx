@@ -236,9 +236,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(1)}>
           {componentOne?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceOne ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceOne ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentOne.name}</Text>
         </TouchableOpacity>
@@ -253,9 +257,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(2)}>
           {componentTwo?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceTwo ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceTwo ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentTwo.name}</Text>
         </TouchableOpacity>
@@ -270,9 +278,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(3)}>
           {componentThree?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceThree ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceThree ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentThree.name}</Text>
         </TouchableOpacity>
@@ -287,9 +299,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(4)}>
           {componentFour?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceFour ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceFour ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentFour.name}</Text>
         </TouchableOpacity>
@@ -306,9 +322,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(5)}>
           {componentFive?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceFive ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceFive ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentFive.name}</Text>
         </TouchableOpacity>
@@ -323,9 +343,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(6)}>
           {componentSix?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceSix ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceSix ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentSix.name}</Text>
         </TouchableOpacity>
@@ -340,9 +364,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(7)}>
           {componentSeven?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceSeven ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceSeven ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentSeven.name}</Text>
         </TouchableOpacity>
@@ -357,9 +385,13 @@ const ScreenOne: React.FC<AppProps> = () => {
           }}
           onPress={() => handleButtonPress(8)}>
           {componentEight?.type === 'light' ? (
-            <Icon name="lightbulb-outline" size={24} color="black" />
+            <Icon
+              name="lightbulb-outline"
+              size={24}
+              color={deviceEight ? 'green' : 'red'}
+            />
           ) : (
-            <Icon2 name="fan" size={24} color="black" />
+            <Icon2 name="fan" size={24} color={deviceEight ? 'green' : 'red'} />
           )}
           <Text style={styles.buttonText}>{componentEight.name}</Text>
         </TouchableOpacity>
@@ -388,7 +420,7 @@ const styles = StyleSheet.create({
     width: 160, // Set a fixed width for the round button
     height: 160, // Set a fixed height for the round button
     borderRadius: 160 / 2, // Make the button round
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#009688',
     margin: 5,
     padding: 10,
     alignItems: 'center',
@@ -416,8 +448,8 @@ const styles = StyleSheet.create({
   },
   buttonOff: {
     borderWidth: 5,
-    borderColor: 'red',
-    shadowColor: '#ff0000', // Neon color
+    // borderColor: 'red',
+    // shadowColor: '#ff0000', // Neon color
     shadowOffset: {
       width: 0,
       height: 0,
@@ -427,7 +459,7 @@ const styles = StyleSheet.create({
     elevation: 10, // For Android
   },
   buttonText: {
-    color: 'black',
+    color: '#fff',
     fontSize: 16,
     marginTop: 5,
     textTransform: 'uppercase',

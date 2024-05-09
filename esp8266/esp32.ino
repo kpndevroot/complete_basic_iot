@@ -15,7 +15,9 @@ const int numRelays = sizeof(relayPins) / sizeof(relayPins[0]);
 
 void setup() {
   Serial.begin(9600);
-
+  for (int i = 0; i < numRelays; i++) {
+        pinMode(relayPins[i], OUTPUT);
+  }
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(250);

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Slider from '@react-native-community/slider';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const RoomFan = () => {
   const [sliderValue, setSliderValue] = useState(0);
@@ -58,6 +59,9 @@ const RoomFan = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.fanBox}>
+        <Icon2 name="fan" size={100} color="white" />
+      </View>
       <Text style={styles.sliderText}>{formatSliderValue(sliderValue)}</Text>
       <Slider
         style={styles.slider}
@@ -84,7 +88,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#000',
+  },
+  fanBox: {
+    width: 250,
+    height: 250,
+    backgroundColor: '#009688',
+    borderRadius: 250 / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sliderText: {
     marginBottom: 20,

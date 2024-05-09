@@ -212,6 +212,12 @@ app.post('/myip', async (req, res) => {
   // res.send(response.data);
 });
 
+
+
+
+app.get
+
+
 app.listen(port, async () => {
   console.log(`Node.js API listening at http://localhost:${port}`);
   await readEspIp();

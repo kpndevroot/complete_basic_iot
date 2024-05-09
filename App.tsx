@@ -1,64 +1,19 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {useState, useEffect} from 'react';
+import {Text, View, Image, StyleSheet, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-// import { MaterialCommunityIcons } from '@expo/vector-icons';{}
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenOne from './screens/RoomOne';
-import FanSpeedControl from './components/FanSpeedControl';
-import RegularSpeed from './components/RegularSpeed';
-import Slider from '@react-native-community/slider';
 import RoomFan from './screens/RoomFan';
-
-function Notifications() {
-  const [sliderValue, setSliderValue] = React.useState(0);
-
-  const formatSliderValue = (value: number) => {
-    // Convert the numeric value to text as desired
-    switch (value) {
-      case 0:
-        return 'Low';
-      case 1:
-        return 'Medium';
-      case 2:
-        return 'High';
-      case 3:
-        return 'Very High';
-      default:
-        return '';
-    }
-  };
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: '#000',
-      }}>
-      <Text style={{marginBottom: 10}}>{formatSliderValue(sliderValue)}</Text>
-      <Slider
-        style={{width: 200, height: 50}}
-        minimumValue={0}
-        maximumValue={3}
-        value={sliderValue}
-        onValueChange={value => setSliderValue(value)}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
-        step={1}
-      />
-    </View>
-  );
-}
-
+import SplashScreen from './screens/SplashScreen';
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
-      activeColor="#e91e63"
+      activeColor="#009688"
       style={{backgroundColor: 'tomato'}}>
       <Tab.Screen
         name="Feed"
@@ -80,24 +35,36 @@ function MyTabs() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Adjust the timeout as needed
+  }, []);
+
   return (
     <NavigationContainer>
-      <MyTabs />
+      {loading ? <SplashScreen /> : <MyTabs />}
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  },
+});
