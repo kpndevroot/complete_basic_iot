@@ -68,6 +68,7 @@ let readEspIp = async () => {
 
 app.get('/check', async (req, res) => {
   try {
+    readEspIp;
     let ip = await ipModal.findById('663ce112d2dc525082ccc11b');
     console.log({FUCK: ip});
     res.send({ip: ip, message: 'IP read successfully'});
@@ -146,13 +147,14 @@ for (let i = 0; i < numRelays; i++) {
 app.get('/myip', async (req, res) => {
   // const response = await req.body.ip;
   console.log({query: req.query, ip: req.query.local_ip});
-  console.log('ESP 1 SENDED THE IP ');
+  console.log(`ESP 1 SENDED THE IP ${req.query.local_ip}`);
+
   // res.send(erq.data);
 
   try {
     // let isIp = await ipModal.find({});
-    console.log({isIp: isIp});
-    console.log({isIp: isIp.length});
+    // console.log({isIp: isIp});
+    // console.log({isIp: isIp.length});
     // if (isIp.length > 0) {
     console.log('IP already exists');
     // await ipModal.updateOne({
