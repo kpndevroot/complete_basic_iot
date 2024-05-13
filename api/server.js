@@ -152,7 +152,7 @@ app.get('/myip', async (req, res) => {
       // });
       await ipModal.findOneAndUpdate(
         {
-          _id: '66379070ee4484a38bc4006a',
+          _id: '663ce112d2dc525082ccc11b',
         },
         {ip: req.query.local_ip},
         {new: true},
@@ -212,11 +212,7 @@ app.post('/myip', async (req, res) => {
   // res.send(response.data);
 });
 
-
-
-
-app.get
-
+app.get;
 
 app.listen(port, async () => {
   console.log(`Node.js API listening at http://localhost:${port}`);

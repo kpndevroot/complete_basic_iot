@@ -43,7 +43,7 @@ const ScreenOne: React.FC<AppProps> = () => {
   const [deviceEight, setDeviceEight] = useState<Boolean>();
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
   // const url = 'http://192.168.1.2:3000';
-  const url = 'http://0.tcp.in.ngrok.io:15531';
+  const url = 'http://0.tcp.in.ngrok.io:17361';
 
   const [editDevice, setEditDevice] = useState(1);
   const handleEdit = (componentName: string, componentType: string) => {
