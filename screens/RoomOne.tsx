@@ -123,6 +123,7 @@ const ScreenOne: React.FC<AppProps> = () => {
         } catch (error: any) {
           console.log(error.message);
         }
+        break;
       case 5:
         try {
           let response: any;
@@ -167,6 +168,7 @@ const ScreenOne: React.FC<AppProps> = () => {
         } catch (error: any) {
           console.log(error.message);
         }
+        break;
       case 8:
         try {
           let response: any;
@@ -181,6 +183,7 @@ const ScreenOne: React.FC<AppProps> = () => {
         } catch (error: any) {
           console.log(error.message);
         }
+        break;
       default:
         break;
     }
