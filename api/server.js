@@ -141,29 +141,29 @@ app.get('/myip', async (req, res) => {
   // res.send(erq.data);
 
   try {
-    let isIp = await ipModal.find({});
+    // let isIp = await ipModal.find({});
     console.log({isIp: isIp});
     console.log({isIp: isIp.length});
-    if (isIp.length > 0) {
-      console.log('IP already exists');
-      // await ipModal.updateOne({
-      //   _id: '66379070ee4484a38bc4006a',
-      //   ip: req.query.local_ip,
-      // });
-      await ipModal.findOneAndUpdate(
-        {
-          _id: '663ce112d2dc525082ccc11b',
-        },
-        {ip: req.query.local_ip},
-        {new: true},
-      );
-      res.send('IP already exists and updated');
-    } else {
-      await ipModal.create({ip: req.query.local_ip});
-      console.log('IP does not exist');
-      console.log('IP saved');
-      res.send('IP not exists');
-    }
+    // if (isIp.length > 0) {
+    console.log('IP already exists');
+    // await ipModal.updateOne({
+    //   _id: '66379070ee4484a38bc4006a',
+    //   ip: req.query.local_ip,
+    // });
+    await ipModal.findOneAndUpdate(
+      {
+        _id: '663ce112d2dc525082ccc11b',
+      },
+      {ip: req.query.local_ip},
+      {new: true},
+    );
+    res.send('IP already exists and updated');
+    // } else {
+    //   await ipModal.create({ip: req.query.local_ip});
+    //   console.log('IP does not exist');
+    //   console.log('IP saved');
+    //   res.send('IP not exists');
+    // }
   } catch (error) {
     console.error('Error saving IP:', error.message);
   }
@@ -175,29 +175,29 @@ app.get('/myip2', async (req, res) => {
   console.log('ESP 2 SENDED THE IP ');
 
   try {
-    let isIp = await ipModal.find({});
-    console.log({isIp: isIp});
-    console.log({isIp: isIp.length});
-    if (isIp.length > 0) {
-      console.log('IP already exists');
-      // await ipModal.updateOne({
-      //   _id: '663ccc16a18e78269c935326',
-      //   ip: req.query.local_ip,
-      // });
-      await ipModal.findOneAndUpdate(
-        {
-          _id: '663ccc16a18e78269c935326',
-        },
-        {ip: req.query.local_ip},
-        {new: true},
-      );
-      res.send('IP already exists and updated');
-    } else {
-      await ipModal.create({ip: req.query.local_ip});
-      console.log('IP does not exist');
-      console.log('IP saved');
-      res.send('IP not exists');
-    }
+    // let isIp = await ipModal.find({});
+    // console.log({isIp: isIp});
+    // console.log({isIp: isIp.length});
+    // if (isIp.length > 0) {
+    //   console.log('IP already exists');
+    // await ipModal.updateOne({
+    //   _id: '663ccc16a18e78269c935326',
+    //   ip: req.query.local_ip,
+    // });
+    await ipModal.findOneAndUpdate(
+      {
+        _id: '663ccc16a18e78269c935326',
+      },
+      {ip: req.query.local_ip},
+      {new: true},
+    );
+    res.send('IP already exists and updated');
+    // } else {
+    //   await ipModal.create({ip: req.query.local_ip});
+    //   console.log('IP does not exist');
+    //   console.log('IP saved');
+    //   res.send('IP not exists');
+    // }
   } catch (error) {
     console.error('Error saving IP:', error.message);
   }
