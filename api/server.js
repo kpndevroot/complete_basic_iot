@@ -72,7 +72,7 @@ app.get('/check', async (req, res) => {
     console.log({FUCK: ip});
     res.send({ip: ip, message: 'IP read successfully'});
   } catch (error) {
-    res.send({message: 'Error reading IP'});
+    res.send({message: 'Error reading IP', error: error.message});
   }
 });
 app.get('/readEsp', async (req, res) => {
