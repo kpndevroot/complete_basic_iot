@@ -10,7 +10,8 @@ const ngrok = require('ngrok');
 
 // const esp8266IP = 'http://192.168.1.5:8080'; // Replace with your ESP8266's IP address
 // const esp8266IP = 'https://103.38.12.241:8080'; // Replace with your ESP8266's IP address
-let esp8266IP;
+let esp8266IP, esp_fan;
+
 const TOKEN = process.env.TOKEN;
 mongoose
   // .connect('mongodb://127.0.0.1:27017/iot')
@@ -57,17 +58,17 @@ const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 
 const numRelays = 8;
 let readEspIp = async () => {
-  let ip = await ipModal.find({});
+  let ip = await ipModal.findById('663ce112d2dc525082ccc11b');
   // console.log({ip: ip});
   if (ip.length > 0) {
     console.log('IP already exists');
-    esp8266IP = ip[0].ip;
+    esp8266IP = ip.ip;
     console.log({esp8266IP: esp8266IP});
   } else {
     console.log('IP does not exist');
   }
 };
-app.get('/readEsp', async (req, res) => {
+app.get('/readEsp1', async (req, res) => {
   try {
     readEspIp();
     res.send({ip: esp8266IP, message: 'IP read successfully'});
