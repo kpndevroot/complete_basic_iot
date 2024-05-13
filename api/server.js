@@ -59,7 +59,7 @@ const Tunnel = mongoose.model('Tunnel', TunnelSchema);
 const numRelays = 8;
 let readEspIp = async () => {
   let ip = await ipModal.findById('663ce112d2dc525082ccc11b');
-  // console.log({ip: ip});
+  console.log({ip: ip});
   if (ip.length > 0) {
     console.log('IP already exists');
     esp8266IP = ip.ip;
@@ -68,7 +68,7 @@ let readEspIp = async () => {
     console.log('IP does not exist');
   }
 };
-app.get('/readEsp1', async (req, res) => {
+app.get('/readEsp', async (req, res) => {
   try {
     readEspIp();
     res.send({ip: esp8266IP, message: 'IP read successfully'});
