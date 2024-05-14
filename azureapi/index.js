@@ -1,11 +1,16 @@
 // Import required modules
 const express = require('express');
+var cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
+app.use(cors());
 app.get('/', (req, res) => res.send('hi dev i am on'));
 
 mongoose
   // .connect('mongodb://127.0.0.1:27017/iot')
+  // .connect(
+  //   'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
+  // )
   .connect(
     'mongodb+srv://iotdev:mypass@iotcluster0.8p8gkd3.mongodb.net/?retryWrites=true&w=majority&appName=IOTCluster0',
   )

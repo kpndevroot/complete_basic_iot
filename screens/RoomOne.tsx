@@ -33,44 +33,92 @@ const ScreenOne: React.FC<AppProps> = () => {
     componentEight,
     editComponent,
   }: any = useRoomStore();
-  const [deviceOne, setDeviceOne] = useState<Boolean>();
-  const [deviceTwo, setDeviceTwo] = useState<Boolean>();
-  const [deviceThree, setDeviceThree] = useState<Boolean>();
-  const [deviceFour, setDeviceFour] = useState<Boolean>();
-  const [deviceFive, setDeviceFive] = useState<Boolean>();
-  const [deviceSix, setDeviceSix] = useState<Boolean>();
-  const [deviceSeven, setDeviceSeven] = useState<Boolean>();
-  const [deviceEight, setDeviceEight] = useState<Boolean>();
+  const [deviceOne, setDeviceOne] = useState<Boolean>(!!componentOne?.state);
+  const [deviceTwo, setDeviceTwo] = useState<Boolean>(!!componentTwo?.state);
+  const [deviceThree, setDeviceThree] = useState<Boolean>(
+    componentThree?.state,
+  );
+  const [deviceFour, setDeviceFour] = useState<Boolean>(!!componentFour?.state);
+  const [deviceFive, setDeviceFive] = useState<Boolean>(!!componentFive?.state);
+  const [deviceSix, setDeviceSix] = useState<Boolean>(!!componentSix?.state);
+  const [deviceSeven, setDeviceSeven] = useState<Boolean>(
+    !!componentSeven?.state,
+  );
+  const [deviceEight, setDeviceEight] = useState<Boolean>(
+    !!componentEight?.state,
+  );
   const colorScheme = useColorScheme(); // 'light', 'dark', or null
   // const url = 'http://192.168.1.2:3000';
-  const url = 'http://0.tcp.in.ngrok.io:17361';
-
+  // const url = 'http://0.tcp.in.ngrok.io:18939';
+  let url: any;
+  const azure_url = 'http://192.168.63.38:5000';
   const [editDevice, setEditDevice] = useState(1);
   const handleEdit = (componentName: string, componentType: string) => {
     editComponent(editDevice, componentName, componentType);
     // console.log('handleEdit', {componentName: componentName});
     setModalVisible(false);
   };
+  // function fetchTunnel() {
+  //   try {
+  //     // const doc: any = await axios.get(`${azure_url}/tunnel`);
+  //     axios
+  //       .get('http://192.168.225.38:5000/tunnel')
+  //       .then((response: any) => {
+  //         // console.log({res: response?.data?.doc}); // Logging the response document
+  //         const tcpUrl = response?.data?.doc?.tcpUrl; // Assuming the response data has a property 'tcpUrl'
+  //         console.log({tcpUrl: tcpUrl});
+  //         if (tcpUrl) {
+  //           const httpUrl = tcpUrl.replace('tcp://', 'http://');
+  //           console.log(`TUNNEL IS THERE ${httpUrl}`);
+  //           url = httpUrl;
+  //         } else {
+  //           console.log('No TCP URL found in the response');
+  //         }
+  //       });
+  //   } catch (error: any) {
+  //     console.log('inside catch');
+  //     console.error(error.message);
+  //   }
+  // }
+
+  const fetchTunnel = async () => {
+    try {
+      let response = await axios.get('https://eeeiotunnel.vercel.app/tunnel');
+      console.log(response);
+      console.log(response?.data?.doc?.tcpUrl);
+      const httpUrl = response?.data?.doc?.tcpUrl.replace('tcp://', 'http://');
+      console.log(`TUNNEL IS THERE ${httpUrl}`);
+      url = httpUrl;
+    } catch (error: any) {
+      console.log('inside catch');
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
-    // Additional initialization or side effects based on colorScheme
-    // console.log({componentTwo: componentTwo});
+    fetchTunnel();
   }, [colorScheme, editDevice]);
+
   const handleButtonPress = async (deviceId: number) => {
     console.log({deviceId: deviceId});
     switch (deviceId) {
       case 1:
         try {
           let response: any;
-          setDeviceOne(prev => !prev);
           if (deviceOne) {
+            console.log(`send request ${url}`);
             response = await axios.get(`${url}/relay1/off`);
             console.log('response sended');
-            if (response) {
+            if (response.ok) {
               console.log('Relay 1 is off');
+              setDeviceOne(prev => !prev);
             }
             // response = Request('/led/on');
           } else {
             response = await axios.get(`${url}/relay1/on`);
+            if (response.ok) {
+              setDeviceOne(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {
@@ -80,14 +128,18 @@ const ScreenOne: React.FC<AppProps> = () => {
       case 2:
         try {
           let response: any;
-          setDeviceTwo(prev => !prev);
           if (deviceTwo) {
             response = await axios.get(`${url}/relay2/off`);
             console.log('response sended relay2');
-
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
             // response = Request('/led/on');
           } else {
             response = await axios.get(`${url}/relay2/on`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {
@@ -101,8 +153,14 @@ const ScreenOne: React.FC<AppProps> = () => {
           if (deviceThree) {
             response = await axios.get(`${url}/relay3/off`);
             // response = Request('/led/on');
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           } else {
             response = await axios.get(`${url}/relay3/on`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {
@@ -116,8 +174,14 @@ const ScreenOne: React.FC<AppProps> = () => {
           if (deviceFour) {
             response = await axios.get(`${url}/relay4/off`);
             // response = Request('/led/on');
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           } else {
             response = await axios.get(`${url}/relay4/on`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {
@@ -130,9 +194,15 @@ const ScreenOne: React.FC<AppProps> = () => {
           setDeviceFive(prev => !prev);
           if (deviceFive) {
             response = await axios.get(`${url}/relay5/off`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
             // response = Request('/led/on');
           } else {
             response = await axios.get(`${url}/relay5/on`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {
@@ -146,8 +216,14 @@ const ScreenOne: React.FC<AppProps> = () => {
           if (deviceSix) {
             response = await axios.get(`${url}/relay6/off`);
             // response = Request('/led/on');
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           } else {
             response = await axios.get(`${url}/relay6/on`);
+            if (response.ok) {
+              setDeviceTwo(prev => !prev);
+            }
           }
           console.log(response.data);
         } catch (error: any) {

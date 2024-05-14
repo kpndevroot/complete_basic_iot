@@ -52,42 +52,42 @@ export interface RoomState {
 const initialState: RoomState = {
   componentOne: {
     name: 'Bulb 1',
-    state: false,
+    state: true,
     type: 'light',
   },
   componentTwo: {
     name: 'Bulb 2',
-    state: false,
+    state: true,
     type: 'light',
   },
   componentThree: {
     name: 'Bulb 3',
-    state: false,
+    state: true,
     type: 'light',
   },
   componentFour: {
     name: 'Bulb 4',
-    state: false,
+    state: true,
     type: 'light',
   },
   componentFive: {
     name: 'fan 1',
-    state: false,
+    state: true,
     type: 'fan',
   },
   componentSix: {
     name: 'fan 2',
-    state: false,
+    state: true,
     type: 'fan',
   },
   componentSeven: {
     name: 'fan 3',
-    state: false,
+    state: true,
     type: 'fan',
   },
   componentEight: {
     name: 'fan 4',
-    state: false,
+    state: true,
     type: 'fan',
   },
   fetchAllComponentState: async () => {

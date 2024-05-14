@@ -1,13 +1,14 @@
 const express = require('express');
 require('dotenv').config();
-
+var cors = require('cors');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const ipModal = require('./modal/ipModal.js');
 const app = express();
+
 const port = 3000;
 const ngrok = require('ngrok');
-
+app.use(cors());
 // const esp8266IP = 'http://192.168.1.5:8080'; // Replace with your ESP8266's IP address
 // const esp8266IP = 'https://103.38.12.241:8080'; // Replace with your ESP8266's IP address
 let esp8266IP, esp_fan;
